@@ -5,3 +5,18 @@ body {
 ul {
   list-style: decimal;
 }
+
+.iconify {
+  position: relative;
+  top: 2px;
+}
+
+:root {
+  font-family: Menlo, Meslo LG, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol,
+    "Noto Color Emoji";
+}
+
+.max-width {
+  max-width: 48rem;
+}

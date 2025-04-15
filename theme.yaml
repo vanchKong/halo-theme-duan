@@ -1,19 +1,19 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-modern-starter
+  name: halo-theme-duan
 spec:
-  displayName: Modern Starter
+  displayName: halo-theme-duan
   author:
-    name: Halo
-    website: https://github.com/halo-dev
+    name: 端端
+    website: https://github.com/vanchKong/halo-theme-duan
   description: A development starter theme with Vite Ecosystem for Halo
   logo: https://www.halo.run/logo
-  homepage: https://github.com/halo-dev/theme-modern-starter#readme
-  repo: https://github.com/halo-dev/theme-modern-starter
-  issues: https://github.com/halo-dev/theme-modern-starter/issues
-  settingName: "theme-modern-starter-setting"
-  configMapName: "theme-modern-starter-configMap"
+  homepage: https://github.com/vanchKong/halo-theme-duan
+  repo: https://github.com/vanchKong/halo-theme-duan
+  issues: https://github.com/vanchKong/halo-theme-duan/issues
+  settingName: "halo-theme-duan-setting"
+  configMapName: "halo-theme-duan-configMap"
   version: "1.0.0"
   requires: "2.0.0"
   license:
