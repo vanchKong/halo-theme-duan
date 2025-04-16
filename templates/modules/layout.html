@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" th:fragment="html (content)">
+<html lang="zh" th:fragment="html (headerFragment,contentFragment,footerFragment)">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,6 +9,14 @@
     <script th:src="@{/assets/dist/main.iife.js?v={version}(version=${theme.spec.version})}"></script>
   </head>
   <body>
-    <th:block th:replace="${content}" />
+    <div class="flex !min-h-screen max-xl:flex-col max-xl:px-36 xl:px-80">
+      <header class="left-header flex items-center xl:fixed xl:left-0 xl:right-0 xl:top-0 xl:flex-col">
+        <th:block th:replace="${headerFragment}"> header </th:block>
+      </header>
+      <th:block th:replace="${contentFragment}"> content </th:block>
+      <!-- <footer class="p-8 xl:fixed xl:right-0 xl:top-0 ">
+        <th:block th:replace="${footerFragment}"> footer </th:block>
+      </footer> -->
+    </div>
   </body>
 </html>

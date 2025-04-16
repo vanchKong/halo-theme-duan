@@ -1,0 +1,20 @@
+<th:block th:fragment="headerFragment">
+  <img th:src="${site.logo}" class="h-28 w-28 rounded-full shadow-2xl" />
+  <p th:text="${site.title}" class="text-1 mt-6 text-center text-lg font-bold"></p>
+  <p x-if="site.subtitle" th:text="${site.subtitle}" class="text-2 mt-1 text-center text-sm"></p>
+  <div class="w-full" th:with="menu = ${menuFinder.getPrimary()}">
+    <div class="mt-6 flex w-full flex-col gap-y-2 text-center" th:with="menuItems = ${menu.menuItems}">
+      <div
+        class="text-1 menu-item w-full cursor-pointer rounded-md p-1 py-2 text-center text-sm"
+        th:each="menuItem : ${menuItems}"
+      >
+        <a
+          th:href="@{${menuItem.status.href}}"
+          th:text="${menuItem.status.displayName}"
+          th:target="${menuItem.spec.target?.value}"
+        >
+        </a>
+      </div>
+    </div>
+  </div>
+</th:block>
