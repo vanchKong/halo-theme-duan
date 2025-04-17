@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" th:fragment="html (headerFragment,contentFragment,footerFragment)">
+<html lang="zh" th:fragment="html (headerFragment,contentFragment)">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,15 +8,36 @@
     <link rel="stylesheet" th:href="@{/assets/dist/style.css?v={version}(version=${theme.spec.version})}" />
     <script th:src="@{/assets/dist/main.iife.js?v={version}(version=${theme.spec.version})}"></script>
   </head>
-  <body>
-    <div class="flex !min-h-screen max-xl:flex-col max-xl:px-36 xl:px-80">
-      <header class="left-header flex items-center xl:fixed xl:left-0 xl:right-0 xl:top-0 xl:flex-col">
+  <body class="h-screen overflow-auto">
+    <div class="wrapper-box flex !min-h-screen max-cs:flex-col">
+      <header class="header sticky top-0 z-10 flex h-screen max-h-screen flex-col items-center">
         <th:block th:replace="${headerFragment}"> header </th:block>
       </header>
-      <th:block th:replace="${contentFragment}"> content </th:block>
-      <!-- <footer class="p-8 xl:fixed xl:right-0 xl:top-0 ">
-        <th:block th:replace="${footerFragment}"> footer </th:block>
-      </footer> -->
+      <main class="main max-width min-width content-width mx-auto flex flex-1 flex-col !pb-56">
+        <th:block th:replace="${contentFragment}"> content </th:block>
+      </main>
+      <footer class="footer sticky top-0 z-10 h-screen max-h-screen">123</footer>
     </div>
+
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function updateStickyElements() {
+          const header = document.querySelector(".header");
+          const footer = document.querySelector(".footer");
+          const viewportHeight = window.innerHeight;
+
+          if (header) {
+            header.style.maxHeight = `${viewportHeight}px`;
+          }
+          if (footer) {
+            footer.style.maxHeight = `${viewportHeight}px`;
+          }
+        }
+
+        updateStickyElements();
+
+        window.addEventListener("resize", updateStickyElements);
+      });
+    </script> -->
   </body>
 </html>

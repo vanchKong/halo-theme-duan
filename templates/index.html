@@ -5,117 +5,115 @@
   <th:block th:fragment="headerFragment"> </th:block>
   <th:block th:fragment="contentFragment">
     <!-- <div class="max-width min-width ltr content-width mx-auto px-8"> -->
-    <main class="max-width min-width content-width z-10 mx-auto flex flex-col px-8 xl:py-8">
-      <div class="flex flex-auto flex-col gap-4">
-        <th:block th:each="post : ${posts.items}">
-          <!-- 文章 -->
-          <article
-            th:attr="x-data=|{permalink: '${post.status?.permalink}'}|"
-            x-on:click="jumpToPermalink($event,permalink)"
-            class="bg-1 cursor-pointer rounded-xl p-8 transition-all duration-300"
-          >
-            <!-- <a th:href="@{${post.status?.permalink}}"> -->
-            <header class="text-1 flex items-center justify-between gap-5">
-              <h2 class="text-xl font-bold">
-                <span th:text="${post.spec.title}"> </span>
-              </h2>
-              <div class="hidden flex-1 items-center gap-1 md:inline-flex">
-                <!-- 分类 -->
-                <th:block th:each="category : ${post.categories}">
-                  <a class="text-2 link-1 flex items-center gap-1 text-sm" th:href="@{${category.status?.permalink}}">
-                    <span class="iconify icon-[tabler--category]"></span>
-                    <span th:text="${category.spec?.displayName}">无分类</span>
-                  </a>
-                </th:block>
-                <!-- 标签 -->
-                <th:block th:each="tag : ${post.tags}">
-                  <a class="text-2 link-1 flex items-center gap-1 text-sm" th:href="@{${tag.status?.permalink}}">
-                    <span class="iconify icon-[tabler--tags]"></span>
-                    <span th:text="${tag.spec?.displayName}">无标签</span>
-                  </a>
-                </th:block>
-              </div>
-              <!-- 作者 -->
-              <div th:with="contributor = ${contributorFinder.getContributor(post.spec.owner)}">
-                <img th:src="${contributor.avatar}" class="h-6 w-6 rounded-full" />
-              </div>
-            </header>
-
-            <!-- 分类 -->
-            <th:block th:each="category : ${post.categories}">
-              <a
-                class="text-2 link-1 inline-flex items-center gap-1 text-sm md:hidden"
-                th:href="@{${category.status?.permalink}}"
-              >
-                <span class="iconify icon-[tabler--category]"></span>
-                <span th:text="${category.spec?.displayName}">无分类</span>
-              </a>
-            </th:block>
-            <!-- 标签 -->
-            <th:block th:each="tag : ${post.tags}">
-              <a
-                class="text-2 link-1 inline-flex items-center gap-1 text-sm md:hidden"
-                th:href="@{${tag.status?.permalink}}"
-              >
-                <span class="iconify icon-[tabler--tags]"></span>
-                <span th:text="${tag.spec?.displayName}">无标签</span>
-              </a>
-            </th:block>
-            <!-- 文章摘要 -->
-            <section class="text-2 mt-1 text-sm">
-              <div th:text="${post.status?.excerpt}"></div>
-            </section>
-            <div class="border-1 my-4 border-t"></div>
-            <!-- 文章底部 -->
-            <footer class="mt-1 flex items-center gap-1">
-              <span class="text-2 inline-flex items-center gap-1 text-xs">
-                <span class="iconify icon-[tabler--eye]"></span>
-                <span th:text="${post.stats?.visit}">0</span>
-              </span>
-              <span class="text-2 inline-flex items-center gap-1 text-xs">
-                <span class="iconify icon-[tabler--thumb-up]"></span>
-                <span th:text="${post.stats?.upvote}">0</span>
-              </span>
-              <span class="text-2 inline-flex flex-1 items-center gap-1 text-xs">
-                <span class="iconify icon-[tabler--message-circle]"></span>
-                <span th:text="${post.stats?.comment}">0</span>
-              </span>
-              <span class="text-2 inline-flex items-center gap-1 text-xs">
-                <span class="iconify icon-[tabler--clock]"></span>
-                <time
-                  th:datetime="${post.spec.publishTime}"
-                  itemprop="datePublished"
-                  th:text="${#temporals.format(post.spec.publishTime, 'yyyy-MM-dd')}"
-                >
-                </time>
-              </span>
-            </footer>
-            <!-- </a> -->
-          </article>
-        </th:block>
-      </div>
-
-      <!-- 分页器 -->
-      <div class="mt-6 flex w-full items-center justify-end gap-2">
-        <a
-          th:if="${posts.hasPrevious()}"
-          th:href="@{${posts.prevUrl}}"
-          class="whitespace-no-wrap bg-1 text-2 border-1 group inline-flex items-center justify-center gap-1 rounded-md border px-4 py-1 text-sm font-medium leading-6 shadow-sm focus:shadow-none focus:outline-none"
+    <div class="flex flex-auto flex-col gap-4">
+      <th:block th:each="post : ${posts.items}">
+        <!-- 文章 -->
+        <article
+          th:attr="x-data=|{permalink: '${post.status?.permalink}'}|"
+          x-on:click="jumpToPermalink($event,permalink)"
+          class="bg-1 cursor-pointer rounded-xl p-8 transition-all duration-300"
         >
-          <span class="iconify icon-[tabler--arrow-left]"></span>
-          <!-- <span>上一页</span> -->
-        </a>
-        <span class="text-2 text-sm" th:text="${posts.page} +' / '+ ${posts.totalPages}"></span>
-        <a
-          th:if="${posts.hasNext()}"
-          th:href="@{${posts.nextUrl}}"
-          class="whitespace-no-wrap bg-1 text-2 border-1 group inline-flex items-center justify-center gap-1 rounded-md border px-4 py-1 text-sm font-medium leading-6 shadow-sm focus:shadow-none focus:outline-none"
-        >
-          <!-- <span>下一页</span> -->
-          <span class="iconify icon-[tabler--arrow-right]"></span>
-        </a>
-      </div>
-    </main>
+          <!-- <a th:href="@{${post.status?.permalink}}"> -->
+          <header class="text-1 flex items-center justify-between gap-5">
+            <h2 class="text-xl font-bold">
+              <span th:text="${post.spec.title}"> </span>
+            </h2>
+            <div class="hidden flex-1 items-center gap-1 md:inline-flex">
+              <!-- 分类 -->
+              <th:block th:each="category : ${post.categories}">
+                <a class="text-2 link-1 flex items-center gap-1 text-sm" th:href="@{${category.status?.permalink}}">
+                  <span class="iconify icon-[tabler--category]"></span>
+                  <span th:text="${category.spec?.displayName}">无分类</span>
+                </a>
+              </th:block>
+              <!-- 标签 -->
+              <th:block th:each="tag : ${post.tags}">
+                <a class="text-2 link-1 flex items-center gap-1 text-sm" th:href="@{${tag.status?.permalink}}">
+                  <span class="iconify icon-[tabler--tags]"></span>
+                  <span th:text="${tag.spec?.displayName}">无标签</span>
+                </a>
+              </th:block>
+            </div>
+            <!-- 作者 -->
+            <div th:with="contributor = ${contributorFinder.getContributor(post.spec.owner)}">
+              <img th:src="${contributor.avatar}" class="h-6 w-6 rounded-full" />
+            </div>
+          </header>
+
+          <!-- 分类 -->
+          <th:block th:each="category : ${post.categories}">
+            <a
+              class="text-2 link-1 inline-flex items-center gap-1 text-sm md:hidden"
+              th:href="@{${category.status?.permalink}}"
+            >
+              <span class="iconify icon-[tabler--category]"></span>
+              <span th:text="${category.spec?.displayName}">无分类</span>
+            </a>
+          </th:block>
+          <!-- 标签 -->
+          <th:block th:each="tag : ${post.tags}">
+            <a
+              class="text-2 link-1 inline-flex items-center gap-1 text-sm md:hidden"
+              th:href="@{${tag.status?.permalink}}"
+            >
+              <span class="iconify icon-[tabler--tags]"></span>
+              <span th:text="${tag.spec?.displayName}">无标签</span>
+            </a>
+          </th:block>
+          <!-- 文章摘要 -->
+          <section class="text-2 mt-1 text-sm">
+            <div th:text="${post.status?.excerpt}"></div>
+          </section>
+          <div class="border-1 my-4 border-t"></div>
+          <!-- 文章底部 -->
+          <footer class="mt-1 flex items-center gap-1">
+            <span class="text-2 inline-flex items-center gap-1 text-xs">
+              <span class="iconify icon-[tabler--eye]"></span>
+              <span th:text="${post.stats?.visit}">0</span>
+            </span>
+            <span class="text-2 inline-flex items-center gap-1 text-xs">
+              <span class="iconify icon-[tabler--thumb-up]"></span>
+              <span th:text="${post.stats?.upvote}">0</span>
+            </span>
+            <span class="text-2 inline-flex flex-1 items-center gap-1 text-xs">
+              <span class="iconify icon-[tabler--message-circle]"></span>
+              <span th:text="${post.stats?.comment}">0</span>
+            </span>
+            <span class="text-2 inline-flex items-center gap-1 text-xs">
+              <span class="iconify icon-[tabler--clock]"></span>
+              <time
+                th:datetime="${post.spec.publishTime}"
+                itemprop="datePublished"
+                th:text="${#temporals.format(post.spec.publishTime, 'yyyy-MM-dd')}"
+              >
+              </time>
+            </span>
+          </footer>
+          <!-- </a> -->
+        </article>
+      </th:block>
+    </div>
+
+    <!-- 分页器 -->
+    <div class="mt-6 flex w-full items-center justify-end gap-2">
+      <a
+        th:if="${posts.hasPrevious()}"
+        th:href="@{${posts.prevUrl}}"
+        class="whitespace-no-wrap bg-1 text-2 border-1 group inline-flex items-center justify-center gap-1 rounded-md border px-4 py-1 text-sm font-medium leading-6 shadow-sm focus:shadow-none focus:outline-none"
+      >
+        <span class="iconify icon-[tabler--arrow-left]"></span>
+        <!-- <span>上一页</span> -->
+      </a>
+      <span class="text-2 text-sm" th:text="${posts.page} +' / '+ ${posts.totalPages}"></span>
+      <a
+        th:if="${posts.hasNext()}"
+        th:href="@{${posts.nextUrl}}"
+        class="whitespace-no-wrap bg-1 text-2 border-1 group inline-flex items-center justify-center gap-1 rounded-md border px-4 py-1 text-sm font-medium leading-6 shadow-sm focus:shadow-none focus:outline-none"
+      >
+        <!-- <span>下一页</span> -->
+        <span class="iconify icon-[tabler--arrow-right]"></span>
+      </a>
+    </div>
     <!-- </div> -->
     <!-- </th:block> -->
   </th:block>
